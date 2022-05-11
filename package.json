@@ -1,0 +1,27 @@
+{
+  "name": "shalimar",
+  "version": "1.0.0",
+  "description": "Vanilla SSR",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "prebuild": "rm -rf ./.cache/* && mkdir -p ./.cache/ && esbuild examples/* --platform=node --format=esm --target=node16 --bundle --jsx-factory=h --jsx-fragment=Fragment --external:./node_modules/* --outdir=./.cache/",
+    "build": "cd .cache && node Todo.js",
+    "dev:build": "pnpm prebuild && pnpm build",
+    "dev:serve": "npx servor .cache/dist",
+    "dev:watch": "chokidar \"examples/**/*.js\" \"examples/**/*.jsx\" -c \"npm run build\"",
+    "dev": "concurrently -r npm:dev:*"
+  },
+  "optionalDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^7.1.0",
+    "esbuild": "^0.14.38",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "author": "Elias Rhouzlane",
+  "license": "ISC"
+}
